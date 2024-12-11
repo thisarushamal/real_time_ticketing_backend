@@ -54,7 +54,7 @@ const server = http.createServer(async (req, res) => {
         else if (pathname === '/vendor/add' && req.method === 'POST') {
             const body = await getRequestBody(req);
             const { vendorId, count } = body;
-            
+
             if (!vendorId || !count || typeof count !== 'number') {
                 res.statusCode = 400;
                 res.end(JSON.stringify({ error: 'Invalid vendorId or count' }));
@@ -63,17 +63,17 @@ const server = http.createServer(async (req, res) => {
 
             // Add new tickets
             const newTickets = Array.from(
-                { length: count }, 
+                { length: count },
                 (_, i) => ticketState.tickets.length + i + 1
             );
             ticketState.tickets.push(...newTickets);
             ticketState.availableTickets += count;
 
             res.setHeader('Content-Type', 'application/json');
-            res.end(JSON.stringify({ 
-                success: true, 
+            res.end(JSON.stringify({
+                success: true,
                 addedTickets: count,
-                currentAvailable: ticketState.availableTickets 
+                currentAvailable: ticketState.availableTickets
             }));
         }
         // POST /customer/buy endpoint
@@ -98,23 +98,23 @@ const server = http.createServer(async (req, res) => {
             ticketState.availableTickets -= count;
 
             res.setHeader('Content-Type', 'application/json');
-            res.end(JSON.stringify({ 
-                success: true, 
+            res.end(JSON.stringify({
+                success: true,
                 purchasedTickets,
-                remainingTickets: ticketState.availableTickets 
+                remainingTickets: ticketState.availableTickets
             }));
         }
         // POST /config endpoint
         else if (pathname === '/config' && req.method === 'POST') {
             const newConfig = await getRequestBody(req);
-            
+
             // Update configuration
             ticketState.config = { ...ticketState.config, ...newConfig };
 
             res.setHeader('Content-Type', 'application/json');
-            res.end(JSON.stringify({ 
-                success: true, 
-                currentConfig: ticketState.config 
+            res.end(JSON.stringify({
+                success: true,
+                currentConfig: ticketState.config
             }));
         }
         // Handle 404 Not Found
