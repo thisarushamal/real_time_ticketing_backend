@@ -1,0 +1,6 @@
+{
+  "totalTickets": 12,
+  "ticketReleaseRate": 7,
+  "customerRetrievalRate": 4,
+  "maxTicketCapacity": 25
+}
