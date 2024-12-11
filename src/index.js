@@ -23,7 +23,7 @@ const server = http.createServer((req, res) => {
     const parsedUrl = url.parse(req.url, true);
     const pathname = parsedUrl.pathname;
 
-    // Example: Handle `/tickets/status` endpoint
+
     if (pathname === '/tickets/status' && req.method === 'GET') {
         // Example response for ticket status
         const ticketStatus = {
@@ -34,7 +34,7 @@ const server = http.createServer((req, res) => {
         res.writeHead(200, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify(ticketStatus));
     }
-    // Add your other routes here
+
     else {
         res.writeHead(404, { 'Content-Type': 'text/plain' });
         res.end('Not Found');
